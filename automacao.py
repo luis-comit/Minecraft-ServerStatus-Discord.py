@@ -26,6 +26,11 @@ async def on_ready():
     print(f'https://api.mcsrvstat.us/2/{minecraft_server_ip}')
     print(minecraft_server_ip +":"+ minecraft_server_porta)
 
+    channel = bot.get_channel(id_canal)
+
+    embed = discord.Embed(title=f"Inicio", description="Aguarde")
+    msga = await channel.send(embed=embed)
+
     ###########################################################
     #Loop#
     ###########################################################
@@ -86,9 +91,11 @@ async def on_ready():
         embed.add_field(name="`👤` Pessoas Ativas:", value=f"{players_online_message}", inline=False)
         embed.add_field(name="`🔌` Status do Servidor", value=f"{server_status}", inline=False)
         embed.add_field(name="`📡` Ping", value=f"{str(latency)[:6]}ms", inline=False)
+        
+        await msga.edit(embed=embed)
+        print("Editado")
+    Loop.start()
 
-        await channel.purge(limit=1)
-        await channel.send(embed=embed)
 
     Loop.start()
 
